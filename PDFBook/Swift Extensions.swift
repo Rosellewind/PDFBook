@@ -8,8 +8,19 @@
 
 import Cocoa
 
+extension Dictionary {
+
+    static func withElements(_ elements: [(String, Any)]) -> Dictionary<String, Any> {
+        var dictionary = [String: Any]()
+        for (key, value) in elements {
+            dictionary[key] = value
+            dictionary.updateValue(value, forKey: key)
+        }
+        return dictionary
+    }
+}
+
 extension NSLayoutConstraint {
-    
     
     class func centerHorizontally(_ view: NSView) -> NSLayoutConstraint {
         let center =  NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: view.superview, attribute: .centerX, multiplier: 1, constant: 0)
@@ -116,6 +127,10 @@ extension NSLayoutConstraint {
             constraints.append(height)
         }
         return constraints
+    }
+    
+    class func equalWidthsAndHeights(_ views: [NSView]) -> [NSLayoutConstraint] {
+        return equalWidths(views) + equalHeights(views)
     }
     
     /// H:|[view1][view2][view3]|

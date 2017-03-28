@@ -10,6 +10,14 @@ import Cocoa
 import Quartz
 
 class DropIntoView: NSTextView {
+    let pad: CGFloat = 15
+    
+    // subclasses are sharing these attributes
+    let center = (NSParagraphStyleAttributeName, {() -> Any in let p = NSMutableParagraphStyle(); p.alignment = .center; return p }())
+    let headerCenterWithSpacing = (NSParagraphStyleAttributeName, {() -> Any in let p = NSMutableParagraphStyle(); p.alignment = .center; p.paragraphSpacing = 4; return p }())
+    let headerFont = (NSFontAttributeName, NSFont(name: "Arial", size: 22.0) as Any)
+    let textFont = (NSFontAttributeName, NSFont(name: "Arial", size: 14.0) as Any)
+    let headerColor = (NSForegroundColorAttributeName, NSColor.wetAsphalt() as Any)
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -22,33 +30,30 @@ class DropIntoView: NSTextView {
         // using designated initializer, as required by the compiler
         super.init(frame: temp.frame, textContainer: temp.textContainer)
         
-        Swift.print("init")
+        // setup
         self.register(forDraggedTypes: [NSFilenamesPboardType])
+        textContainerInset = NSSize(width: pad, height: pad)
+        isEditable = false
+        
+        // setup border to show selection
+        wantsLayer = true
+        layer?.borderColor = NSColor.selectedControlColor.cgColor
+
     }
 
     override var intrinsicContentSize:NSSize {
         let size = attributedString().size()
-        return NSMakeSize(size.width + 20, size.height + 20)
+        return NSMakeSize(size.width + 2*pad, size.height + 2*pad)
     }
     
     var isReceivingDrag = false {
         didSet {
+            if isReceivingDrag == true {
+                layer?.borderWidth = 5.0
+            } else {
+                layer?.borderWidth = 0
+            }
             Swift.print("isReceivingDrag")
-            needsDisplay = true
-        }
-    }
-    
-    override func draw(_ dirtyRect: NSRect) {
-        backgroundColor.setFill()
-        NSRectFill(dirtyRect)
-        super.draw(dirtyRect)
-
-        
-        if isReceivingDrag {
-            NSColor.selectedControlColor.set()
-            let path = NSBezierPath(rect:bounds)
-            path.lineWidth = 5.0
-            path.stroke()
         }
     }
 
@@ -87,12 +92,16 @@ class DropIntoView: NSTextView {
             // get the pdf
             if let pdf = PDFDocument(url: urls[0]) {
                 pdfDropped(pdf: pdf)
+            } else if let window = self.window {
+                let alert = NSAlert()
+                alert.messageText = "Use a PDF"
+                alert.addButton(withTitle: "OK")
+                alert.beginSheetModal(for: window, completionHandler: nil )
             }
             return true
         }
         
         // Still here, then something went wrong. The drop is not accepted.
-        
         return false
     }
     
@@ -100,3 +109,5 @@ class DropIntoView: NSTextView {
         Swift.print("pdfDropped")
     }
 }
+
+

@@ -17,10 +17,23 @@ class MediumBookletView: DropIntoView {
     
     override init() {
         super.init()
-        backgroundColor = NSColor.blue
+        backgroundColor = NSColor.emerald()
         if let layoutManager = layoutManager {
-            let string = NSAttributedString(string: "Drop Pdf files here to print a Medium Booklet", attributes: nil)
-            let textStorage = NSTextStorage(attributedString: string)
+            let color = (NSForegroundColorAttributeName, NSColor.clouds() as Any)
+            
+            let headerAttributes = Dictionary<String, Any>.withElements([headerCenterWithSpacing, headerFont, headerColor])
+            let secondHeaderAttributes = Dictionary<String, Any>.withElements([headerCenterWithSpacing, headerFont, color])
+            let attributes = Dictionary<String, Any>.withElements([center, textFont, color])
+            
+            let headerString = NSMutableAttributedString(string: "Drop Pdf files here to print a Medium Booklet", attributes: headerAttributes)
+            let firstString = NSAttributedString(string: "\n2 pages on the front and back of each sheet\n5.5 x 8.5", attributes: attributes)
+            let secondHeaderString = NSMutableAttributedString(string: "\n\nUse these printer settings:", attributes: secondHeaderAttributes)
+            let secondString = NSAttributedString(string: "\nCheck the 2-Sided box\nLayout/Pages Per Sheet/2\nLayout/Layout Direction/Z\nLayout/Two-Sided/Short-Edge binding", attributes: attributes)
+            headerString.append(firstString)
+            headerString.append(secondHeaderString)
+            headerString.append(secondString)
+            
+            let textStorage = NSTextStorage(attributedString: headerString)
             layoutManager.replaceTextStorage(textStorage)
         }
     }
@@ -38,6 +51,7 @@ class MediumBookletView: DropIntoView {
     }
     
     func makeMediumBooklet(from: PDFDocument, to: PDFDocument) {
+        
         // add blank pages at the end
         let blankPages = 4 - from.pageCount % 4
         if blankPages < 4 {
@@ -45,7 +59,6 @@ class MediumBookletView: DropIntoView {
                 from.insert(PDFPage(), at: from.pageCount)
             }
         }
-        
         
         let endIndex = from.pageCount - 1
         let numPrintedPages = from.pageCount / 2
@@ -64,8 +77,6 @@ class MediumBookletView: DropIntoView {
             }
             to.insert(from.page(at: zero)!, at: to.pageCount)
             to.insert(from.page(at: one)!, at: to.pageCount)
-            Swift.print("\(zero) \(one)")
         }
     }
-
 }

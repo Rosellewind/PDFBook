@@ -17,20 +17,24 @@ class SmallBookletView: DropIntoView {
     
     override init() {
         super.init()
-        backgroundColor = NSColor.red
+        backgroundColor = NSColor.peterRiver()
 
         if let layoutManager = layoutManager {
-            let paragraph = NSMutableParagraphStyle()
-            paragraph.alignment = .center
+            let color = (NSForegroundColorAttributeName, NSColor.sunflower() as Any)
             
+            let headerAttributes = Dictionary<String, Any>.withElements([headerCenterWithSpacing, headerFont, headerColor])
+            let secondHeaderAttributes = Dictionary<String, Any>.withElements([headerCenterWithSpacing, headerFont, color])
+            let attributes = Dictionary<String, Any>.withElements([center, textFont, color])
             
-            
-            let string = NSMutableAttributedString(string: "Drop Pdf files here to print a Small Booklet", attributes: [NSForegroundColorAttributeName: NSColor.blue, NSFontAttributeName: NSFont(name: "Chalkduster", size: 18.0)!, NSParagraphStyleAttributeName: paragraph])
-            let attrString = NSAttributedString(string: "\n Attributed Strings", attributes: [NSForegroundColorAttributeName: NSColor.orange, NSFontAttributeName: NSFont(name: "Chalkduster", size: 18.0)!, NSParagraphStyleAttributeName: paragraph])
-            
-            
-            string.append(attrString)
-            let textStorage = NSTextStorage(attributedString: string)
+            let headerString = NSMutableAttributedString(string: "Drop Pdf files here to print a Small Booklet", attributes: headerAttributes)
+            let firstString = NSAttributedString(string: "\n4 pages on the front and back of each sheet\n4.25 x 5.5", attributes: attributes)
+            let secondHeaderString = NSMutableAttributedString(string: "\n\nUse these printer settings:", attributes: secondHeaderAttributes)
+            let secondString = NSAttributedString(string: "\nCheck the 2-Sided box\nLayout/Pages Per Sheet/4\nLayout/Layout Direction/Z\nLayout/Two-Sided/Long-Edge binding", attributes: attributes)
+            headerString.append(firstString)
+            headerString.append(secondHeaderString)
+            headerString.append(secondString)
+
+            let textStorage = NSTextStorage(attributedString: headerString)
             layoutManager.replaceTextStorage(textStorage)
         }
     }
@@ -56,7 +60,6 @@ class SmallBookletView: DropIntoView {
                 from.insert(PDFPage(), at: from.pageCount)
             }
         }
-        
         
         let endIndex = from.pageCount - 1
         let numPrintedPages = from.pageCount / 4

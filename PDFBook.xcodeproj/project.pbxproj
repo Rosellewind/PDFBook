@@ -11,6 +11,7 @@
 		233687221E7EFA29002494DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233687211E7EFA29002494DE /* ViewController.swift */; };
 		233687241E7EFA29002494DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233687231E7EFA29002494DE /* Assets.xcassets */; };
 		233687271E7EFA29002494DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 233687251E7EFA29002494DE /* Main.storyboard */; };
+		2347DAD01E8AD0C80048F062 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2347DACF1E8AD0C80048F062 /* Colors.swift */; };
 		23A969951E87258E00167312 /* Swift Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A969941E87258E00167312 /* Swift Extensions.swift */; };
 		23A969971E8727B300167312 /* DropIntoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A969961E8727B300167312 /* DropIntoView.swift */; };
 		23A969991E872CC400167312 /* SmallBookletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A969981E872CC400167312 /* SmallBookletView.swift */; };
@@ -24,6 +25,7 @@
 		233687231E7EFA29002494DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		233687261E7EFA29002494DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		233687281E7EFA29002494DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2347DACF1E8AD0C80048F062 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		23A969941E87258E00167312 /* Swift Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Swift Extensions.swift"; sourceTree = "<group>"; };
 		23A969961E8727B300167312 /* DropIntoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropIntoView.swift; sourceTree = "<group>"; };
 		23A969981E872CC400167312 /* SmallBookletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallBookletView.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				233687251E7EFA29002494DE /* Main.storyboard */,
 				233687281E7EFA29002494DE /* Info.plist */,
 				23A969941E87258E00167312 /* Swift Extensions.swift */,
+				2347DACF1E8AD0C80048F062 /* Colors.swift */,
 			);
 			path = PDFBook;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				233687221E7EFA29002494DE /* ViewController.swift in Sources */,
 				23A9699B1E872D9200167312 /* MediumBookletView.swift in Sources */,
 				23A969991E872CC400167312 /* SmallBookletView.swift in Sources */,
+				2347DAD01E8AD0C80048F062 /* Colors.swift in Sources */,
 				233687201E7EFA29002494DE /* AppDelegate.swift in Sources */,
 				23A969951E87258E00167312 /* Swift Extensions.swift in Sources */,
 				23A969971E8727B300167312 /* DropIntoView.swift in Sources */,
